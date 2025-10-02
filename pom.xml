@@ -16,21 +16,41 @@
 
     <dependencies>
 
-    <!-- https://mvnrepository.com/artifact/org.testng/testng -->
-    <dependency>
-        <groupId>org.testng</groupId>
-        <artifactId>testng</artifactId>
-        <version>7.11.0</version>
-        <scope>test</scope>
-    </dependency>
+        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.11.0</version>
+            <scope>test</scope>
+        </dependency>
 
-    <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
-    <dependency>
-        <groupId>org.seleniumhq.selenium</groupId>
-        <artifactId>selenium-java</artifactId>
-        <version>4.35.0</version>
-    </dependency>
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.35.0</version>
+        </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>5.1.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.29.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
         <dependency>
@@ -44,13 +64,6 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>5.4.1</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
-        <dependency>
-            <groupId>com.github.javafaker</groupId>
-            <artifactId>javafaker</artifactId>
-            <version>1.0.2</version>
         </dependency>
 
 
@@ -68,9 +81,39 @@
         </dependency>
 
 
-
-
     </dependencies>
+
+
+    <build>
+        <plugins>
+            <!-- Maven Surefire Plugin is responsible for running unit tests / TestNG tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <!--                    <includes>&lt;!&ndash;This tags declares the classes to run&ndash;&gt;-->
+                    <!--                        <include>**/C08_MethodChain.java</include>-->
+                    <!--                        <include>**/C07_ActionsMethods.java</include>-->
+                    <!--                        <include>**/C05_SauceDemo.java</include>-->
+                    <!--                    </includes>-->
+
+                    <suiteXmlFiles>
+                        <suiteXmlFile>05_SmokeTest.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+
+                    <!-- Run tests in parallel at the CLASS level -->
+                    <!-- Each test class will run in a separate thread -->
+                    <parallel>classes</parallel>
+                    <!-- Maximum number of parallel threads (browsers) -->
+                    <threadCount>5</threadCount>
+                    <!-- Redirects console output (System.out / System.err)
+                         into a file inside target/surefire-reports -->
+                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>
